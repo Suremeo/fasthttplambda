@@ -4,6 +4,7 @@ import (
 	"encoding/base64"
 	"net"
 	"net/url"
+	"os"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/valyala/fasthttp"
@@ -127,4 +128,11 @@ func Handle(handler fasthttp.RequestHandler) func(event Request) (Response, erro
 
 		return output, nil
 	}
+}
+
+func IsLambda() bool {
+	if os.Getenv("LAMBDA_TASK_ROOT") != "" {
+		return true
+	}
+	return false
 }
