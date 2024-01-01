@@ -69,7 +69,7 @@ func Handle(handler fasthttp.RequestHandler) func(event Request) (Response, erro
 
 		uri.Path = event.Path
 		if uri.Path == "" {
-			uri.Path = event.RequestContext.HTTP.Path
+			uri.Path, _ = url.PathUnescape(event.RequestContext.HTTP.Path)
 		}
 
 		uri.Host = "localhost"
